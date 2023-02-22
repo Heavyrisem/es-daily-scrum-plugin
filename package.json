@@ -2,7 +2,7 @@
 	"name": "es-daily-scrum-writer",
 	"version": "1.0.0",
 	"description": "This is a plugin that generate template for daily scrum.",
-	"main": "dist/main.js",
+	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
