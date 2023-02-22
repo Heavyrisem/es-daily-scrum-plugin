@@ -47,7 +47,8 @@ export default class ScrumPlugin extends Plugin {
 
 	onunload() {}
 
-	checkScrumExist(editor: Editor) {
+	checkScrumExist(editor: Editor): boolean {
+		if (!editor) return false;
 		const input = editor.getDoc().getValue();
 		const isValidScrum = isScrum(input);
 		this.statusBarItemEl.setText(
