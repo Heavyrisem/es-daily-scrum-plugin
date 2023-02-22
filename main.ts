@@ -20,9 +20,10 @@ export default class ScrumPlugin extends Plugin {
 		this.addCommand({
 			id: "write-new-scrum-template",
 			name: "write scrum template",
-			editorCallback(editor, ctx) {
+			editorCallback: (editor, ctx) => {
 				const input = editor.getDoc().getValue();
-				if (!isScrum(input)) return new Notice("No Valid Scrum found");
+				if (!this.checkScrumExist(editor))
+					return new Notice("No Valid Scrum found");
 
 				const yesterdayScrum = parseScrum(input);
 				const todayScrum: Scrum = {
@@ -52,5 +53,7 @@ export default class ScrumPlugin extends Plugin {
 		this.statusBarItemEl.setText(
 			isValidScrum ? "Scrum found" : "No Scrum detected"
 		);
+
+		return isValidScrum;
 	}
 }

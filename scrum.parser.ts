@@ -52,7 +52,7 @@ export const parseScrum = (input: string): Scrum => {
 export const isScrum = (input: string): boolean => {
 	const scrum = parseScrum(input);
 
-	const isDateValid = isDate(scrum.date);
+	const isDateValid = isDate(scrum.date) && !isNaN(scrum.date.getTime());
 	const isHealthValid = scrum?.health?.length > 0;
 	const isYesterdayValid =
 		Boolean(scrum?.yesterday?.data) && Boolean(scrum?.yesterday?.workType);
