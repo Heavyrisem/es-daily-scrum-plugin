@@ -28,9 +28,7 @@ export default class ScrumPlugin extends Plugin {
 				const yesterdayScrum = parseScrum(input);
 				const todayScrum: Scrum = {
 					...yesterdayScrum,
-					date: new Date(
-						yesterdayScrum.date.getTime() + 1000 * 60 * 60 * 24
-					),
+					date: new Date(),
 					yesterday: yesterdayScrum.today,
 					today: {
 						workType: yesterdayScrum.yesterday.workType,

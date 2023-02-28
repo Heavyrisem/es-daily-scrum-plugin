@@ -1,6 +1,6 @@
 {
 	"name": "es-daily-scrum-writer",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "This is a plugin that generate template for daily scrum.",
 	"main": "main.js",
 	"scripts": {
