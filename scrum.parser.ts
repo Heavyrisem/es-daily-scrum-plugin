@@ -1,3 +1,4 @@
+import { FrontMatterCache, TFile } from "obsidian";
 import { isDate } from "util/types";
 
 export interface Scrum {
@@ -60,4 +61,34 @@ export const isScrum = (input: string): boolean => {
 		Boolean(scrum?.today?.data) && Boolean(scrum?.today?.workType);
 
 	return isDateValid && isHealthValid && isYesterdayValid && isTodayValid;
+};
+
+export interface DailyScrum {
+	date: Date;
+	location: string;
+	health: string;
+	content: string;
+}
+
+export const parseDailyNoteScrum = (
+	rawScrum: TFile & { fontmatter: FrontMatterCache; content: string }
+): DailyScrum => {
+	const { location, created, health } = rawScrum.fontmatter;
+	if (!location || !created || !health)
+		throw new Error("메타데이터가 비어있습니다.");
+
+	let [_, scrumContent] = rawScrum.content.split("할 일\n");
+
+	scrumContent = scrumContent.replaceAll("- [ ]", "-");
+	scrumContent = scrumContent.replaceAll(/#(\S+ ?)/gm, "");
+	scrumContent = scrumContent.replaceAll(/[⏳📅🛫⏫🔼🔽➕🔺🔁⏬]+(.*)/gm, "");
+
+	const [parsedScrum] = scrumContent.split("\n\n");
+
+	return {
+		location,
+		health,
+		date: new Date(created),
+		content: parsedScrum,
+	};
 };
